@@ -1,26 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { useTypewriter, useScrollAnimation, useStaggeredAnimation } from '../hooks/animations';
+import { useTypewriter } from '../hooks/animations';
 import profileImage from '../assets/profile.jpg';
 
 const About = () => {
   const { displayText } = useTypewriter("Hello, I'm Dominique", 150, 500);
-  const [highlightRef, highlightVisible] = useScrollAnimation(0.3);
-  const { visibleItems, triggerAnimation } = useStaggeredAnimation(4, 200);
-  const isMountedRef = useRef(true);
-
-  useEffect(() => {
-    // Only trigger animations if component is still mounted
-    if (highlightVisible && isMountedRef.current) {
-      triggerAnimation();
-    }
-  }, [highlightVisible, triggerAnimation]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
 
   return (
     <div className="about-page">
@@ -55,20 +38,20 @@ const About = () => {
         
         <section className="highlights">
           <h3>Key Highlights</h3>
-          <div className="highlight-grid" ref={highlightRef}>
-            <div className={`highlight-card ${visibleItems.has(0) ? 'animate-in' : ''}`}>
+          <div className="highlight-grid">
+            <div className="highlight-card">
               <h4>🚀 Experience</h4>
               <p>Turning ideas into impactful products — each line of code shaped by curiosity and craft.</p>
             </div>
-            <div className={`highlight-card ${visibleItems.has(1) ? 'animate-in' : ''}`}>
+            <div className="highlight-card">
               <h4>💡 Projects</h4>
               <p>From concept to launch, I build projects that blend creativity, scalability, and purpose.</p>
             </div>
-            <div className={`highlight-card ${visibleItems.has(2) ? 'animate-in' : ''}`}>
+            <div className="highlight-card">
               <h4>🛠️ Technologies</h4>
               <p>A tech chameleon — fluent across stacks, always exploring new tools that push innovation forward.</p>
             </div>
-            <div className={`highlight-card ${visibleItems.has(3) ? 'animate-in' : ''}`}>
+            <div className="highlight-card">
               <h4>🎯 Focus</h4>
               <p>Clean code, seamless design, and experiences that make technology feel effortless.</p>
             </div>
