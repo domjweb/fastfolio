@@ -1,6 +1,12 @@
 
+html, body {
+  min-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   background-attachment: fixed;
+  background-size: cover;
 }
 
 /* Reset and Base Styles */
