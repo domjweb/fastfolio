@@ -1,0 +1,3 @@
+azure-functions
+pydantic==2.5.0
+typing-extensions
