@@ -50,11 +50,14 @@ body {
 }
 
 /* Subtle Background Effects */
+
 .App::before {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -66,11 +69,14 @@ body {
   animation: gentleFloat 40s ease-in-out infinite;
 }
 
+
 .App::after {
   content: '';
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
   width: 100%;
   height: 100%;
   pointer-events: none;
