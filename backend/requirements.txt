@@ -1,7 +1,11 @@
+azure-functions
+azure-functions-worker
 fastapi[standard]
 uvicorn[standard]
 pydantic
 python-dotenv
 sqlalchemy
 python-multipart
+azure-functions
+azure-functions-worker
 psycopg2-binary

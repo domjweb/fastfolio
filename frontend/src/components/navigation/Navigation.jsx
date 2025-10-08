@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState, useCallback, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navItems = [
     { path: '/', label: 'About', icon: '👋' },
@@ -13,16 +15,43 @@ const Navigation = () => {
     { path: '/contact', label: 'Contact', icon: '📬' }
   ];
 
-  const toggleMenu = () => {
+  const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
-  };
+  }, [isMenuOpen]);
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
-  };
+  }, []);
+
+  // Enhanced navigation handler to ensure reliable routing
+  const handleNavigation = useCallback((path, event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Close mobile menu if open
+    if (isMenuOpen) {
+      setIsMenuOpen(false);
+    }
+    
+    // Force navigation with a small delay to ensure state updates
+    setTimeout(() => {
+      navigate(path);
+    }, 0);
+  }, [navigate, isMenuOpen]);
+
+  // Handle scroll effect for navigation transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="navigation">
+    <nav className={`navigation ${isScrolled ? 'scrolled' : ''}`}>
       <div className="nav-container">
         <div className="nav-brand">
           <Link to="/" className="brand-link">
@@ -38,6 +67,7 @@ const Navigation = () => {
               <Link
                 to={item.path}
                 className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                onClick={(e) => handleNavigation(item.path, e)}
               >
                 <span className="nav-icon">{item.icon}</span>
                 <span className="nav-text">{item.label}</span>
@@ -65,7 +95,7 @@ const Navigation = () => {
                 <Link
                   to={item.path}
                   className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                  onClick={closeMenu}
+                  onClick={(e) => handleNavigation(item.path, e)}
                 >
                   <span className="nav-icon">{item.icon}</span>
                   <span className="nav-text">{item.label}</span>

@@ -8,6 +8,15 @@ import uuid
 import os
 from database import db
 
+# Import portfolio models and data
+from models import (
+    Experience, ExperiencesResponse,
+    Project, ProjectsResponse, 
+    SkillCategory, SkillsResponse,
+    AboutInfo, AboutResponse
+)
+from portfolio_data import portfolio_data
+
 class ContactRequest(BaseModel):
     name: str
     email: str
@@ -39,7 +48,9 @@ origins = [
     "http://127.0.0.1:5173",  # Alternative localhost
     "http://localhost:3000",  # Create React App (if used)
     "http://localhost:4173",  # Vite preview
-    "https://your-portfolio-domain.com"  # Production domain (update when deployed)
+    "https://domjweb.com",  # Production domain
+    "https://www.domjweb.com",  # Production domain with www
+    "https://ashy-sea-0e6938f0f.2.azurestaticapps.net"  # Current Azure Static Web App URL
 ]
 
 app.add_middleware(
@@ -116,6 +127,49 @@ async def update_contact_status(contact_id: str, status: str):
         return {"message": "Status updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update contact: {str(e)}")
+
+# Portfolio Endpoints
+@app.get("/about", response_model=AboutResponse)
+async def get_about():
+    """Get personal/about information"""
+    return AboutResponse(about=portfolio_data["about"])
+
+@app.get("/experiences", response_model=ExperiencesResponse)
+async def get_experiences():
+    """Get professional experience data"""
+    return ExperiencesResponse(experiences=portfolio_data["experiences"])
+
+@app.get("/projects", response_model=ProjectsResponse) 
+async def get_projects():
+    """Get portfolio projects data"""
+    return ProjectsResponse(projects=portfolio_data["projects"])
+
+@app.get("/skills", response_model=SkillsResponse)
+async def get_skills():
+    """Get technical skills data"""
+    return SkillsResponse(skill_categories=portfolio_data["skills"])
+
+# Health and info endpoints
+@app.get("/api/info")
+async def api_info():
+    """Get API information and available endpoints"""
+    return {
+        "name": "FastFolio Portfolio API",
+        "version": "1.0.0",
+        "description": "Backend API for Dominique Webb's portfolio website",
+        "endpoints": {
+            "GET /": "API status",
+            "GET /health": "Health check", 
+            "GET /about": "Personal information",
+            "GET /experiences": "Professional experience",
+            "GET /projects": "Portfolio projects",
+            "GET /skills": "Technical skills",
+            "POST /contact": "Submit contact form",
+            "GET /contacts": "Get all contacts (admin)",
+            "PATCH /contacts/{id}/status": "Update contact status (admin)"
+        },
+        "documentation": "/docs"
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

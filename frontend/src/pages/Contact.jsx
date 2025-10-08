@@ -24,8 +24,8 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // This will eventually connect to your backend
-      const response = await fetch('http://localhost:8000/contact', {
+      // Use the Azure Functions API endpoint
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const Contact = () => {
               <span className="icon">📧</span>
               <div>
                 <h4>Email</h4>
-                <a href="mailto:your.email@example.com">your.email@example.com</a>
+                <a href="mailto:dominique@domjweb.com">dwebb@domjweb.com</a>
               </div>
             </div>
             
@@ -76,8 +76,8 @@ const Contact = () => {
               <span className="icon">💼</span>
               <div>
                 <h4>LinkedIn</h4>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">
-                  linkedin.com/in/yourprofile
+                <a href="https://linkedin.com/in/dominique-webb" target="_blank" rel="noopener noreferrer">
+                  linkedin.com/in/domjweb
                 </a>
               </div>
             </div>
@@ -86,17 +86,19 @@ const Contact = () => {
               <span className="icon">💻</span>
               <div>
                 <h4>GitHub</h4>
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
-                  github.com/yourusername
+                <a href="https://github.com/domjwebb" target="_blank" rel="noopener noreferrer">
+                  github.com/domjweb
                 </a>
               </div>
             </div>
             
             <div className="contact-item">
-              <span className="icon">📱</span>
+              <span className="icon">🌐</span>
               <div>
-                <h4>Phone</h4>
-                <span>+1 (555) 123-4567</span>
+                <h4>Links</h4>
+                <a href="https://linktr.ee/domjweb" target="_blank" rel="noopener noreferrer">
+                  linktr.ee/domjweb
+                </a>
               </div>
             </div>
           </div>
