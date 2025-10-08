@@ -1,0 +1,34 @@
+# Deploy React App to Azure Static Web Apps
+# Build and deploy a React project to Azure Static Web Apps
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  # Build configuration
+  buildConfiguration: 'production'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+# Install dependencies and build React app
+- script: |
+    cd frontend
+    npm install
+    npm run build
+  displayName: 'npm install and build'
+
+# Deploy to Azure Static Web Apps
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: 'frontend'
+    api_location: ''
+    output_location: 'dist'
+    azure_static_web_apps_api_token: $(deployment_token)
+  displayName: 'Deploy to Azure Static Web Apps'
