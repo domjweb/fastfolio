@@ -23,21 +23,13 @@ const Navigation = () => {
     setIsMenuOpen(false);
   }, []);
 
-  // Enhanced navigation handler to ensure reliable routing
-  const handleNavigation = useCallback((path, event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    // Close mobile menu if open
+  // Simple navigation handler for mobile menu closing
+  const handleMobileNavigation = useCallback(() => {
+    // Just close mobile menu - let React Router handle navigation naturally
     if (isMenuOpen) {
       setIsMenuOpen(false);
     }
-    
-    // Force navigation with a small delay to ensure state updates
-    setTimeout(() => {
-      navigate(path);
-    }, 0);
-  }, [navigate, isMenuOpen]);
+  }, [isMenuOpen]);
 
   // Handle scroll effect for navigation transparency
   useEffect(() => {
@@ -67,7 +59,6 @@ const Navigation = () => {
               <Link
                 to={item.path}
                 className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                onClick={(e) => handleNavigation(item.path, e)}
               >
                 <span className="nav-icon">{item.icon}</span>
                 <span className="nav-text">{item.label}</span>
@@ -95,7 +86,7 @@ const Navigation = () => {
                 <Link
                   to={item.path}
                   className={`mobile-nav-link ${location.pathname === item.path ? 'active' : ''}`}
-                  onClick={(e) => handleNavigation(item.path, e)}
+                  onClick={handleMobileNavigation}
                 >
                   <span className="nav-icon">{item.icon}</span>
                   <span className="nav-text">{item.label}</span>
