@@ -1,7 +1,12 @@
 import azure.functions as func
 import json
 import logging
+import sys
+import os
 from models import ContactRequest
+
+# Add parent directory to path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Contact endpoint processed a request.')
@@ -58,20 +63,42 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             # Validate using Pydantic model
             contact_request = ContactRequest(**req_body)
             
-            # In production, you would:
-            # 1. Send email notification
-            # 2. Store in database
-            # 3. Send confirmation email to user
-            
-            # For now, just log the contact request
-            logging.info(f"Contact form submission: {contact_request.dict()}")
-            
-            # Simulate processing
-            response_data = {
-                "message": "Thank you for your message! I'll get back to you soon.",
-                "contact_id": f"contact_{contact_request.name.lower().replace(' ', '_')}_123",
-                "status": "received"
-            }
+            # Try to save to database
+            try:
+                from db_utils import db
+                
+                # Prepare contact data
+                contact_data = {
+                    "name": contact_request.name,
+                    "email": contact_request.email,
+                    "subject": contact_request.subject,
+                    "message": contact_request.message,
+                    "company": req_body.get("company"),  # Optional field
+                    "phone": req_body.get("phone")       # Optional field
+                }
+                
+                # Save to database
+                saved_contact = db.create_contact(contact_data)
+                
+                # Generate response
+                response_data = {
+                    "message": "Thank you for your message! I'll get back to you soon.",
+                    "contact_id": saved_contact["id"],
+                    "status": "received"
+                }
+                
+                logging.info(f"Contact saved successfully with ID: {saved_contact['id']}")
+                
+            except Exception as db_error:
+                logging.error(f"Database error: {str(db_error)}")
+                # Fallback response if database fails
+                response_data = {
+                    "message": "Thank you for your message! I'll get back to you soon.",
+                    "contact_id": f"fallback_{contact_request.name.lower().replace(' ', '_')}",
+                    "status": "received"
+                }
+                # Still log the contact for manual processing
+                logging.info(f"Contact form submission (DB failed): {contact_request.dict()}")
             
             return func.HttpResponse(
                 json.dumps(response_data),
