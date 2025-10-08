@@ -1,3 +1,9 @@
+html, body, #root, .App {
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -44,9 +50,12 @@ body {
 
 .App {
   min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Subtle Background Effects */
@@ -115,6 +124,10 @@ body {
 .main-content {
   flex: 1;
   padding-top: 80px; /* Account for fixed navigation */
+  min-height: 100vh;
+  min-width: 100vw;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 /* Navigation Styles */
@@ -418,7 +431,7 @@ body {
 
 .timeline::before {
   content: '';
-  position: absolute;
+  position: fixed;
   left: 1rem;
   top: 0;
   bottom: 0;
@@ -433,7 +446,7 @@ body {
 }
 
 .timeline-marker {
-  position: absolute;
+  position: fixed;
   left: -2rem;
   top: 0.5rem;
   width: 12px;
