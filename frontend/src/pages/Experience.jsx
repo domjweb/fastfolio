@@ -5,30 +5,60 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
-      title: "Senior Software Engineer",
-      company: "Tech Company Inc.",
-      period: "2023 - Present",
-      description: "Led development of scalable web applications using React, Node.js, and cloud technologies.",
-      technologies: ["React", "Node.js", "AWS", "PostgreSQL"],
+      title: "Full Stack Developer",
+      company: "Tegria",
+      period: "August 2023 - Present",
+      description: "Engineered web applications and patient portal solutions for Tegria’s healthcare clients, including hospitals and medical institutions leveraging Meditech and Epic systems. Delivered end-to-end development for client-facing portals, provider dashboards, and secure API integrations that enhanced patient access and hospital interoperability.",
+      technologies: ["C#", "ASP.NET", ".NET", "Classic ASP", "JavaScript", "TypeScript", "React", "SQL Server", "Azure", "Meditech", "Epic", "REST APIs", "CI/CD"],
       achievements: [
-        "Increased application performance by 40%",
-        "Led team of 4 developers",
-        "Implemented CI/CD pipelines"
+        "Developed custom patient portals and web applications enabling patients to securely access records, appointments, and billing information",
+        "Integrated hospital systems with Meditech and Epic APIs to synchronize patient data, scheduling, and registration workflows",
+        "Built and maintained backend services supporting multi-hospital deployments with high uptime and compliance requirements",
+        "Partnered directly with healthcare IT teams to design scalable, compliant solutions that met HIPAA and interoperability standards",
+        "Advocated for user-friendly design choices based on client and patient feedback, improving adoption rates across multiple hospital systems"
       ]
     },
     {
       id: 2,
       title: "Full Stack Developer",
-      company: "Startup Solutions",
-      period: "2021 - 2023", 
-      description: "Built end-to-end web applications and APIs for various client projects.",
-      technologies: ["Python", "FastAPI", "React", "MongoDB"],
+      company: "CVS",
+      period: "Feb 2023 - Aug 2023", 
+      description: "Developed enterprise-grade solutions that enhanced pharmacy operations, patient access, and internal workflow automation for retail and clinical systems.",
+      technologies: ["Java", "Spring", "C#", "ASP.NET", ".NET", "Python", "JavaScript", "TypeScript", "Node.js", "Express", "Azure", "SQL Server", "REST APIs", "Proprietary Systems"],
       achievements: [
-        "Delivered 15+ client projects",
-        "Reduced deployment time by 60%",
-        "Mentored junior developers"
+        "Implemented backend integrations that reduced manual data processing time by 25%",
+        "Built workflow automation scripts improving efficiency in pharmacy and clinical support applications",
+        "Contributed to the stability of production environments through active debugging, monitoring, and documentation"
       ]
-    }
+    },
+    {
+      id: 3,
+      title: "Fullstack Developer",
+      company: "Kelly Connect",
+      period: "Oct 2021 - Feb 2023",
+      description: "Developed custom full-stack web applications for KellyConnect’s third-party enterprise clients, delivering scalable recruiting, workforce, and analytics platforms tailored to client needs. Partnered directly with stakeholders to translate business requirements into robust, production-ready solutions used by thousands of employees and applicants.",
+      technologies: ["JavaScript", "TypeScript", "React", "Node.js", "Express", "Java", "Spring", "C#", "ASP.NET", ".NET", "PostgreSQL", "AWS", "Lambda", "S3", "API Integrations"],
+      achievements: [
+        "Built responsive, client-facing web applications that streamlined applicant tracking and onboarding processes",
+        "Developed backend services and REST APIs to handle authentication, data management, and performance reporting",
+        "Collaborated with cross-functional client teams to design user interfaces and deliver custom workflows for large-scale deployments",
+        "Optimized application performance and scalability to support high-volume concurrent users across multiple client environments",
+        "Delivered multiple end-to-end solutions on time and within scope, improving client satisfaction and operational efficiency"
+      ]
+    },
+    {
+      id: 4,
+      title: "Junior Developer",
+      company: "Apple",
+      period: "Jan 2021 - Oct 2021",
+      description: "Worked on Apple's proprietary applications Core and Gather, building new features for the Gather macOS knowledge base app used by customer service teams.",
+      technologies: ["Swift", "Objective-C", "Xcode",],
+      achievements: [
+        "Enhanced application performance and responsiveness, improving internal support workflows",
+        "Collaborated cross-functionally with designers and QA to refine user experience",
+        "Maintained high code quality standards through peer reviews and documentation"
+      ]
+    },
     // Add your actual experiences here
   ];
 
