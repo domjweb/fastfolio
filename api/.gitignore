@@ -1,0 +1,3 @@
+# Ignore environment and settings files containing secrets
+.env
+local.settings.json

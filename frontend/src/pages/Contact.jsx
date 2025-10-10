@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { portfolioAPI } from '../api';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -23,26 +24,14 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+
     try {
-      // Use the Azure Functions API endpoint
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-      
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '' });
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.log('Contact form submitted (demo mode):', formData);
-      setSubmitStatus('demo');
+      // Use the API utility to send contact form
+      await portfolioAPI.sendContact(formData);
+      setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
     }
     
     setIsSubmitting(false);
