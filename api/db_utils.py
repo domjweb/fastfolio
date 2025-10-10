@@ -1,3 +1,4 @@
+# All code removed: file deleted for PostgreSQL cleanup
 import os
 import logging
 from sqlalchemy import create_engine, Column, String, DateTime, text

@@ -2,6 +2,6 @@ azure-functions
 pydantic==2.5.0
 typing-extensions
 sqlalchemy
-psycopg2-binary
+
 python-dotenv
 pydantic[email]

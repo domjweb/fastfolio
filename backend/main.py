@@ -1,12 +1,13 @@
-import uvicorn
+
+import os
+import logging
+from dotenv import load_dotenv
+import uuid
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from typing import List, Optional
+from pydantic import BaseModel, EmailStr
+from azure.cosmos import CosmosClient, exceptions
 from datetime import datetime
-import uuid
-import os
-from database import db
 
 # Import portfolio models and data
 from models import (
@@ -17,50 +18,51 @@ from models import (
 )
 from portfolio_data import portfolio_data
 
-class ContactRequest(BaseModel):
+
+class ContactForm(BaseModel):
     name: str
-    email: str
-    company: Optional[str] = None  # Optional field
-    subject: str
+    email: EmailStr
     message: str
-    phone: Optional[str] = None  # Optional field
 
-class ContactResponse(BaseModel):
-    id: str
-    name: str
-    email: str
-    company: Optional[str] = None
-    subject: str
-    message: str
-    phone: Optional[str] = None
-    created_at: str
-    status: str = "new"  # new, read, responded
 
-class ContactsResponse(BaseModel):
-    contacts: List[ContactResponse]
 
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+load_dotenv()
+
+# Read CosmosDB connection string from environment
+COSMOS_CONNECTION_STRING = os.environ.get("COSMOS_CONNECTION_STRING")
+DATABASE_ID = "domjweb"
+CONTAINER_ID = "contacts"
+logging.info(f"Using Cosmos DB connection string: {COSMOS_CONNECTION_STRING[:50]}... (truncated)")
+logging.info(f"Database: {DATABASE_ID}, Container: {CONTAINER_ID}")
+
+# Initialize Cosmos client
+client = CosmosClient.from_connection_string(COSMOS_CONNECTION_STRING)
+database = client.get_database_client(DATABASE_ID)
+container = database.get_container_client(CONTAINER_ID)
 
 app = FastAPI()
 
 
-origins = [
-    "http://localhost:5173",  # Vite dev server
-    "http://127.0.0.1:5173",  # Alternative localhost
-    "http://localhost:3000",  # Create React App (if used)
-    "http://localhost:4173",  # Vite preview
-    "https://domjweb.com",  # Production domain
-    "https://www.domjweb.com",  # Production domain with www
-    "https://ashy-sea-0e6938f0f.2.azurestaticapps.net"  # Current Azure Static Web App URL
-]
 
+# Allow CORS for local frontend and production (adjust origins as needed)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:3000",
+        "http://localhost:4173",
+        "https://domjweb.com",
+        "https://www.domjweb.com",
+        "https://ashy-sea-0e6938f0f.2.azurestaticapps.net"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],)
+    allow_headers=["*"],
+)
 
-memory_db = {"contacts": []}
 
 @app.get("/")
 def home():
@@ -70,63 +72,30 @@ def home():
 def health_check():
     return {"status": "healthy", "timestamp": datetime.now().isoformat()}
 
-@app.post("/contact", response_model=ContactResponse)
-async def submit_contact(contact: ContactRequest):
-    """Submit a new contact form from recruiters/visitors"""
-    contact_id = str(uuid.uuid4())
-    contact_data = {
-        "id": contact_id,
-        "name": contact.name,
-        "email": contact.email,
-        "company": contact.company,
-        "subject": contact.subject,
-        "message": contact.message,
-        "phone": contact.phone,
-        "created_at": datetime.now().isoformat(),
-        "status": "new"
-    }
-    
+@app.post("/contact")
+def submit_contact(form: ContactForm):
     try:
-        if db.is_connected():
-            await db.create_contact(contact_data)
-        else:
-            # Fallback to memory storage
-            memory_db["contacts"].append(contact_data)
-        
-        return ContactResponse(**contact_data)
+        item = {
+            "id": str(uuid.uuid4()),
+            "name": form.name,
+            "email": form.email,
+            "message": form.message,
+            "timestamp": datetime.utcnow().isoformat() + "Z"
+        }
+        logging.info(f"Attempting to write item to Cosmos DB: {item}")
+        response = container.create_item(body=item)
+        logging.info(f"Successfully wrote item to Cosmos DB. Response: {response}")
+        return {"status": "success", "message": "Contact submitted."}
+    except exceptions.CosmosHttpResponseError as e:
+        logging.error(f"CosmosDB error: {e.message}")
+        raise HTTPException(status_code=500, detail=f"CosmosDB error: {e.message}")
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to save contact: {str(e)}")
+        logging.error(f"Unexpected error: {e}")
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {e}")
 
-@app.get("/contacts", response_model=ContactsResponse)
-async def get_contacts():
-    """Get all contacts - for admin use"""
-    try:
-        if db.is_connected():
-            contacts = await db.get_all_contacts()
-        else:
-            contacts = memory_db["contacts"]
-        
-        return ContactsResponse(contacts=contacts)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to retrieve contacts: {str(e)}")
 
-@app.patch("/contacts/{contact_id}/status")
-async def update_contact_status(contact_id: str, status: str):
-    """Update contact status - for admin use"""
-    try:
-        if db.is_connected():
-            await db.update_contact_status(contact_id, status)
-        else:
-            # Fallback to memory storage
-            for contact in memory_db["contacts"]:
-                if contact["id"] == contact_id:
-                    contact["status"] = status
-                    return {"message": "Status updated successfully"}
-            raise HTTPException(status_code=404, detail="Contact not found")
-        
-        return {"message": "Status updated successfully"}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update contact: {str(e)}")
+# (Optional) You can add Cosmos DB-based endpoints for listing/updating contacts if needed
+
 
 # Portfolio Endpoints
 @app.get("/about", response_model=AboutResponse)
@@ -164,13 +133,10 @@ async def api_info():
             "GET /experiences": "Professional experience",
             "GET /projects": "Portfolio projects",
             "GET /skills": "Technical skills",
-            "POST /contact": "Submit contact form",
-            "GET /contacts": "Get all contacts (admin)",
-            "PATCH /contacts/{id}/status": "Update contact status (admin)"
+            "POST /contact": "Submit contact form"
         },
         "documentation": "/docs"
     }
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 

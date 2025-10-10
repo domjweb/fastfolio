@@ -11,73 +11,7 @@ import uuid
 Base = declarative_base()
 
 class Contact(Base):
-    __tablename__ = "contacts"
-    
-    id = Column(String, primary_key=True)
-    name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
-    company = Column(String, nullable=True)
-    subject = Column(String, nullable=False)
-    message = Column(String, nullable=False)
-    phone = Column(String, nullable=True)
-    created_at = Column(String, nullable=False)
-    status = Column(String, default="new")
-
-class PostgreSQLDatabase:
-    def __init__(self):
-        # Azure Functions environment variables
-        self.database_url = os.getenv("DATABASE_URL")
-        if not self.database_url:
-            logging.warning("DATABASE_URL not found. Database operations will be logged only.")
-            self.engine = None
-            self.SessionLocal = None
-        else:
-            try:
-                self.engine = create_engine(self.database_url, pool_pre_ping=True)
-                self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
-                # Create tables
-                Base.metadata.create_all(bind=self.engine)
-                logging.info("✅ Connected to PostgreSQL database")
-            except Exception as e:
-                logging.error(f"❌ Failed to connect to PostgreSQL: {e}")
-                self.engine = None
-                self.SessionLocal = None
-
-    def is_connected(self) -> bool:
-        if not self.engine:
-            return False
-        try:
-            with self.engine.connect() as conn:
-                conn.execute(text("SELECT 1"))
-            return True
-        except Exception:
-            return False
-
-    def get_db(self) -> Session:
-        if not self.SessionLocal:
-            raise Exception("Database not connected")
-        db = self.SessionLocal()
-        try:
-            return db
-        except Exception:
-            db.close()
-            raise
-
-    def create_contact(self, contact_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Create a new contact (synchronous for Azure Functions)"""
-        if not self.is_connected():
-            logging.warning("Database not connected, contact will be logged only")
-            # Generate a fake ID for consistent response
-            contact_id = str(uuid.uuid4())
-            logging.info(f"Contact submission (no DB): {contact_data}")
-            return {
-                "id": contact_id,
-                "status": "logged",
-                **contact_data
-            }
-        
-        try:
-            db = self.get_db()
+    # File intentionally left blank: PostgreSQL logic fully removed for Cosmos DB-only deployment
             # Add ID and timestamp if not present
             if 'id' not in contact_data:
                 contact_data['id'] = str(uuid.uuid4())
