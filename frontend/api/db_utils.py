@@ -11,7 +11,6 @@ import uuid
 Base = declarative_base()
 
 class Contact(Base):
-    # File intentionally left blank: PostgreSQL logic fully removed for Cosmos DB-only deployment
             # Add ID and timestamp if not present
             if 'id' not in contact_data:
                 contact_data['id'] = str(uuid.uuid4())
