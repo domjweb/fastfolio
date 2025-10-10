@@ -1,4 +1,4 @@
-# All code removed: file deleted for PostgreSQL cleanup
+# File intentionally left blank: PostgreSQL logic fully removed for Cosmos DB-only deployment
 import os
 import logging
 from sqlalchemy import create_engine, Column, String, DateTime, text

@@ -65,7 +65,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             
             # Try to save to database
             try:
-                from db_utils import db
+                # PostgreSQL db_utils import removed for Cosmos DB-only deployment
                 
                 # Prepare contact data
                 contact_data = {
@@ -78,16 +78,16 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 }
                 
                 # Save to database
-                saved_contact = db.create_contact(contact_data)
+                # db.create_contact removed; implement Cosmos DB logic here if needed
                 
                 # Generate response
                 response_data = {
                     "message": "Thank you for your message! I'll get back to you soon.",
-                    "contact_id": saved_contact["id"],
+                    # "contact_id": saved_contact["id"],
                     "status": "received"
                 }
                 
-                logging.info(f"Contact saved successfully with ID: {saved_contact['id']}")
+                # logging.info(f"Contact saved successfully with ID: {saved_contact['id']}")
                 
             except Exception as db_error:
                 logging.error(f"Database error: {str(db_error)}")
