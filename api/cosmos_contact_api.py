@@ -1,4 +1,5 @@
 import os
+import logging
 from dotenv import load_dotenv
 import uuid
 from fastapi import FastAPI, HTTPException
@@ -7,11 +8,16 @@ from pydantic import BaseModel, EmailStr
 from azure.cosmos import CosmosClient, exceptions
 from datetime import datetime
 
+# Setup logging
+logging.basicConfig(level=logging.INFO)
 load_dotenv()
+
 # Read CosmosDB connection string from environment
 COSMOS_CONNECTION_STRING = os.environ.get("COSMOS_CONNECTION_STRING")
 DATABASE_ID = "domjweb"
 CONTAINER_ID = "contacts"
+logging.info(f"Using Cosmos DB connection string: {COSMOS_CONNECTION_STRING[:50]}... (truncated)")
+logging.info(f"Database: {DATABASE_ID}, Container: {CONTAINER_ID}")
 
 # Initialize Cosmos client
 client = CosmosClient.from_connection_string(COSMOS_CONNECTION_STRING)
@@ -45,7 +51,13 @@ def submit_contact(form: ContactForm):
             "message": form.message,
             "timestamp": datetime.utcnow().isoformat() + "Z"
         }
-        container.create_item(body=item)
+        logging.info(f"Attempting to write item to Cosmos DB: {item}")
+        response = container.create_item(body=item)
+        logging.info(f"Successfully wrote item to Cosmos DB. Response: {response}")
         return {"status": "success", "message": "Contact submitted."}
     except exceptions.CosmosHttpResponseError as e:
+        logging.error(f"CosmosDB error: {e.message}")
         raise HTTPException(status_code=500, detail=f"CosmosDB error: {e.message}")
+    except Exception as e:
+        logging.error(f"Unexpected error: {e}")
+        raise HTTPException(status_code=500, detail=f"Unexpected error: {e}")
