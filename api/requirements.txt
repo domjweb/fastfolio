@@ -4,3 +4,4 @@ typing-extensions
 sqlalchemy
 psycopg2-binary
 python-dotenv
+pydantic[email]
