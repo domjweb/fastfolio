@@ -1,9 +1,13 @@
+
 import azure.functions as func
 import json
 import logging
 import sys
 import os
+import uuid
+from datetime import datetime
 from models import ContactRequest
+from azure.cosmos import CosmosClient, exceptions
 
 # Add parent directory to path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -65,32 +69,42 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             
             # Try to save to database
             try:
-                # PostgreSQL db_utils import removed for Cosmos DB-only deployment
-                
                 # Prepare contact data
                 contact_data = {
+                    "id": str(uuid.uuid4()),
                     "name": contact_request.name,
                     "email": contact_request.email,
                     "subject": contact_request.subject,
                     "message": contact_request.message,
                     "company": req_body.get("company"),  # Optional field
-                    "phone": req_body.get("phone")       # Optional field
+                    "phone": req_body.get("phone"),       # Optional field
+                    "timestamp": datetime.utcnow().isoformat() + "Z"
                 }
-                
-                # Save to database
-                # db.create_contact removed; implement Cosmos DB logic here if needed
-                
+
+                # Cosmos DB connection
+                COSMOS_CONNECTION_STRING = os.environ.get("COSMOS_CONNECTION_STRING")
+                DATABASE_ID = "domjweb"
+                CONTAINER_ID = "contacts"
+                if not COSMOS_CONNECTION_STRING:
+                    raise Exception("COSMOS_CONNECTION_STRING environment variable not set.")
+                client = CosmosClient.from_connection_string(COSMOS_CONNECTION_STRING)
+                database = client.get_database_client(DATABASE_ID)
+                container = database.get_container_client(CONTAINER_ID)
+
+                # Write to Cosmos DB
+                logging.info(f"Attempting to write item to Cosmos DB: {contact_data}")
+                response = container.create_item(body=contact_data)
+                logging.info(f"Successfully wrote item to Cosmos DB. Response: {response}")
+
                 # Generate response
                 response_data = {
                     "message": "Thank you for your message! I'll get back to you soon.",
-                    # "contact_id": saved_contact["id"],
+                    "contact_id": contact_data["id"],
                     "status": "received"
                 }
-                
-                # logging.info(f"Contact saved successfully with ID: {saved_contact['id']}")
-                
+
             except Exception as db_error:
-                logging.error(f"Database error: {str(db_error)}")
+                logging.error(f"Cosmos DB error: {str(db_error)}")
                 # Fallback response if database fails
                 response_data = {
                     "message": "Thank you for your message! I'll get back to you soon.",
@@ -98,7 +112,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                     "status": "received"
                 }
                 # Still log the contact for manual processing
-                logging.info(f"Contact form submission (DB failed): {contact_request.dict()}")
+                logging.info(f"Contact form submission (no DB): {contact_request.dict()}")
             
             return func.HttpResponse(
                 json.dumps(response_data),
