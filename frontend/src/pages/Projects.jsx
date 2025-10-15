@@ -71,14 +71,7 @@ const Projects = () => {
             <div className="project-content">
               <h3>{project.title}</h3>
               {project.tagline && (
-                <div style={{
-                  fontSize: '1.1rem',
-                  color: '#2563eb',
-                  fontWeight: 600,
-                  margin: '0.5rem 0 1rem 0',
-                  letterSpacing: '0.5px',
-                  fontFamily: 'inherit',
-                }}>
+                <div className="project-tagline">
                   {project.tagline}
                 </div>
               )}

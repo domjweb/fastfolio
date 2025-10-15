@@ -1,7 +1,7 @@
 @media (max-width: 600px) {
   .project-image {
-    height: 40vw;
-    min-height: 180px;
+    height: 60vw;
+    min-height: 140px;
     max-height: 300px;
   }
   .project-image img {
@@ -9,6 +9,15 @@
     height: 100%;
     object-fit: cover;
   }
+}
+
+.project-tagline {
+  font-size: 1.1rem;
+  color: #4b5563; /* between var(--text-primary) and var(--text-secondary) */
+  font-weight: 600;
+  margin: 0.5rem 0 1rem 0;
+  letter-spacing: 0.5px;
+  font-family: inherit;
 }
 
 html, body {
