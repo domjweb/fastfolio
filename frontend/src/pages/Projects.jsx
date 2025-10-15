@@ -5,19 +5,24 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with user authentication, payment processing, and admin dashboard.",
-      technologies: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+      title: "Interactive Story Generator: Create, explore, and share AI-powered adventures with a single click!",
+      description: "Story Generator is a web app that lets users instantly create and explore interactive, AI-generated adventure stories based on their chosen themes.",
+      technologies: ["JavaScript", "Python", "React", "Node.js", "FastAPI", "Cosmos DB", "SWA", "Azure Managed Functions"],
       features: [
-        "User authentication & authorization",
-        "Product catalog management",
-        "Shopping cart & checkout",
-        "Payment processing",
-        "Order tracking"
+        "Interactive, AI-generated adventure stories based on user-chosen themes",
+        "Asynchronous story generation with real-time job status updates",
+        "Persistent story and job storage using Azure Cosmos DB",
+        "Seamless frontend/backend integration with live polling and instant feedback",
+        "User-friendly interface for entering themes and exploring stories",
+        "Dynamic story navigation with branching choices and multiple endings",
+        "Custom favicon and branding support",
+        "Scalable, serverless deployment using Azure Static Web Apps and Azure Functions",
+        "Secure, anonymous user sessions for story creation and exploration",
+        "Responsive design for desktop and mobile devices"
       ],
-      github: "https://github.com/yourusername/project1",
-      demo: "https://your-demo-link.com",
-      image: "project1.png"
+      github: "https://github.com/domjweb/FastAdventure",
+      demo: "https://kind-desert-0cf58b00f.1.azurestaticapps.net/",
+      image: "/isgBanner.png"
     },
     {
       id: 2,
