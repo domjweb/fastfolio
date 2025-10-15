@@ -55,7 +55,15 @@ const Projects = () => {
           <div key={project.id} className="project-card">
             <div className="project-image">
               <div className="image-placeholder">
-                🖼️ {project.image}
+                {project.id === 1 ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '8px' }}
+                  />
+                ) : (
+                  <>🖼️ {project.image}</>
+                )}
               </div>
             </div>
             
