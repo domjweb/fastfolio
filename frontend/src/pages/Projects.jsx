@@ -5,7 +5,7 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Interactive Story Generator: Create, explore, and share AI-powered adventures with a single click!",
+      title: "Interactive Story Generator",
       description: "Story Generator is a web app that lets users instantly create and explore interactive, AI-generated adventure stories based on their chosen themes.",
       technologies: ["JavaScript", "Python", "React", "Node.js", "FastAPI", "Cosmos DB", "SWA", "Azure Managed Functions"],
       features: [
@@ -20,9 +20,10 @@ const Projects = () => {
         "Secure, anonymous user sessions for story creation and exploration",
         "Responsive design for desktop and mobile devices"
       ],
-      github: "https://github.com/domjweb/FastAdventure",
-      demo: "https://kind-desert-0cf58b00f.1.azurestaticapps.net/",
-      image: "/isgBanner.png"
+  github: "https://github.com/domjweb/FastAdventure",
+  demo: "https://kind-desert-0cf58b00f.1.azurestaticapps.net/",
+  image: "/isgBanner.png",
+  tagline: "Create, explore, and share AI-powered adventures with a single click!"
     },
     {
       id: 2,
@@ -69,6 +70,18 @@ const Projects = () => {
             
             <div className="project-content">
               <h3>{project.title}</h3>
+              {project.tagline && (
+                <div style={{
+                  fontSize: '1.1rem',
+                  color: '#2563eb',
+                  fontWeight: 600,
+                  margin: '0.5rem 0 1rem 0',
+                  letterSpacing: '0.5px',
+                  fontFamily: 'inherit',
+                }}>
+                  {project.tagline}
+                </div>
+              )}
               <p className="project-description">{project.description}</p>
               
               <div className="project-tech">
