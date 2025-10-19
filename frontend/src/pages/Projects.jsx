@@ -1,7 +1,17 @@
 import React from 'react';
 
 const Projects = () => {
-  // This will eventually come from your backend
+  const resolveImage = (img) => {
+    if (!img) return null;
+    // if absolute URL or protocol-relative, return as-is
+    if (/^(https?:)?\/\//.test(img)) return img;
+    // if already starts with slash, assume public path
+    if (img.startsWith('/')) return img;
+    // convert ./image.png -> /image.png (public)
+    if (img.startsWith('./')) return img.replace(/^\.\//, '/');
+    // otherwise prefix with /
+    return `/${img}`;
+  };
   const projects = [
     {
       id: 1,
@@ -37,11 +47,10 @@ const Projects = () => {
         "Progress analytics",
         "File attachments"
       ],
-      github: "https://github.com/yourusername/project2",
-      demo: "https://your-demo-link2.com",
-      image: "project2.png"
+      github: "https://github.com/domjweb/FastOrchestration",
+      demo: "https://happy-smoke-0e8381a0f.1.azurestaticapps.net/",
+      image: "./Fastorcbanner.png",
     }
-    // Add your actual projects here
   ];
 
   return (
@@ -56,14 +65,14 @@ const Projects = () => {
           <div key={project.id} className="project-card">
             <div className="project-image">
               <div className="image-placeholder">
-                {project.id === 1 ? (
+                {project.image ? (
                   <img
-                    src={project.image}
+                    src={resolveImage(project.image)}
                     alt={project.title}
-                    style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain', borderRadius: '8px' }}
+                    className="project-image-img"
                   />
                 ) : (
-                  <>🖼️ {project.image}</>
+                  <>🖼️ No image</>
                 )}
               </div>
             </div>
