@@ -1,46 +1,45 @@
 import React from 'react';
 
 const Skills = () => {
-  // This will eventually come from your backend
   const skillCategories = [
     {
       category: "Frontend Development",
       skills: [
-        { name: "React", level: 90, years: 3 },
-        { name: "JavaScript/TypeScript", level: 85, years: 4 },
-        { name: "HTML/CSS", level: 90, years: 5 },
-        { name: "Vue.js", level: 70, years: 2 },
-        { name: "Tailwind CSS", level: 80, years: 2 }
+        { name: "React", level: 90, years: 4 },
+        { name: "JavaScript/TypeScript", level: 90, years: 4 },
+        { name: "HTML/CSS", level: 95, years: 5 },
+        { name: "Vite", level: 90, years: 4 },
+        { name: "Tailwind CSS", level: 80, years: 3 }
       ]
     },
     {
       category: "Backend Development", 
       skills: [
-        { name: "Python", level: 85, years: 3 },
-        { name: "FastAPI", level: 80, years: 2 },
-        { name: "Node.js", level: 75, years: 2 },
-        { name: "Express.js", level: 70, years: 2 },
-        { name: "RESTful APIs", level: 85, years: 3 }
+        { name: "Python", level: 95, years: 4 },
+        { name: "FastAPI", level: 90, years: 3 },
+        { name: "Node.js", level: 85, years: 3 },
+        { name: "Express.js", level: 80, years: 3 },
+        { name: "RESTful APIs", level: 85, years: 4 }
       ]
     },
     {
       category: "Database & Cloud",
       skills: [
         { name: "PostgreSQL", level: 80, years: 3 },
-        { name: "MongoDB", level: 75, years: 2 },
-        { name: "AWS", level: 70, years: 2 },
-        { name: "Docker", level: 75, years: 2 },
+        { name: "Azure Cosmos", level: 90, years: 3 },
+        { name: "Azure", level: 85, years: 3 },
+        { name: "Docker", level: 80, years: 3 },
         { name: "Git/GitHub", level: 90, years: 4 }
       ]
     },
     {
       category: "Tools & Methods",
       skills: [
-        { name: "Agile/Scrum", level: 85, years: 3 },
-        { name: "CI/CD", level: 75, years: 2 },
+        { name: "Agile/Scrum", level: 80, years: 3 },
+        { name: "CI/CD", level: 85, years: 3 },
         { name: "Testing (Jest, Pytest)", level: 80, years: 2 },
         { name: "VS Code", level: 95, years: 4 },
-        { name: "Figma/Design", level: 70, years: 2 }
+        { name: "Temporal", level: 80, years: 2 }
       ]
     }
   ];
