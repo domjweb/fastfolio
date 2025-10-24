@@ -86,26 +86,6 @@ const Skills = () => {
         ))}
       </div>
       
-      <div className="certifications-section">
-        <h3>Certifications & Learning</h3>
-        <div className="certifications-grid">
-          <div className="cert-card">
-            <h4>🎓 AWS Certified Developer</h4>
-            <p>Amazon Web Services</p>
-            <span className="cert-date">2023</span>
-          </div>
-          <div className="cert-card">
-            <h4>📜 React Professional</h4>
-            <p>Meta/Facebook</p>
-            <span className="cert-date">2022</span>
-          </div>
-          <div className="cert-card">
-            <h4>🏆 Python Advanced</h4>
-            <p>Python Institute</p>
-            <span className="cert-date">2022</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
