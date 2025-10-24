@@ -38,14 +38,20 @@ const Projects = () => {
     {
       id: 2,
       title: "Task Management App",
-      description: "A collaborative task management application with real-time updates and team collaboration features.",
-      technologies: ["React", "FastAPI", "PostgreSQL", "WebSocket"],
+      description: "a collaborative request and workflow management app built with React, FastAPI, Temporal, and PostgreSQL. It enables teams to efficiently submit, track, and resolve requests with real-time collaboration, assignment, team management, and progress analytics.",
+      technologies: ["React", "FastAPI", "Cosmos DB", "PostgreSQL", "Temporal"],
       features: [
-        "Real-time collaboration",
-        "Task assignment & tracking",
-        "Team management",
-        "Progress analytics",
-        "File attachments"
+        "Request submission and tracking",
+        "Real-time collaboration on requests",
+        "Request assignment to team members",
+        "Team management and user roles",
+        "Status updates and workflow automation",
+        "Progress analytics and reporting",
+        "Audit trail of request events",
+        "Integration with Temporal for workflow orchestration",
+        "Modern UI built with React",
+        "Backend API with FastAPI",
+        "Persistent data storage with PostgreSQL"
       ],
       github: "https://github.com/domjweb/FastOrchestration",
       demo: "https://happy-smoke-0e8381a0f.1.azurestaticapps.net/",
