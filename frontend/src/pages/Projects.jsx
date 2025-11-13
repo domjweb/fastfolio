@@ -15,6 +15,26 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
+      title: "Healthcare Claims Processing System",
+      description: "Enterprise-grade healthcare claims validation and processing system built with FastAPI and React. Processes EDI 837 (837I Institutional and 837P Professional) claim files, validates against HIPAA standards, performs automated adjudication, and generates 835 remittance advice. Deployed on Azure Container Apps with PostgreSQL database, featuring real-time claim tracking and status management.",
+      technologies: ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "Azure Container Apps", "Terraform", "SQLAlchemy", "Alembic", "X12 EDI"],
+      features: [
+        "HIPAA-compliant EDI 837 file parsing (Institutional & Professional)",
+        "Automated claim validation and adjudication engine",
+        "835 remittance advice generation",
+        "Real-time claim status tracking and management",
+        "RESTful API with auto-generated OpenAPI documentation",
+        "Containerized microservices architecture",
+        "Infrastructure as Code with Terraform",
+        "PostgreSQL database with migrations"
+  ],
+  github: "https://github.com/domjweb/FastVal",
+  demo: "https://fastval-dev-frontend.ambitiousdune-c30d7366.eastus2.azurecontainerapps.io",
+  image: "/fastvalBanner.png",
+  tagline: "Streamlining Healthcare Claims Processing with Modern Cloud Architecture"
+},
+    {
+      id: 2,
       title: "Interactive Story Generator",
       description: "Story Generator is a web app that lets users instantly create and explore interactive, AI-generated adventure stories based on their chosen themes.",
       technologies: ["JavaScript", "Python", "React", "Node.js", "FastAPI", "Cosmos DB", "SWA", "Azure Managed Functions"],
@@ -30,13 +50,13 @@ const Projects = () => {
         "Secure, anonymous user sessions for story creation and exploration",
         "Responsive design for desktop and mobile devices"
       ],
-  github: "https://github.com/domjweb/FastAdventure",
-  demo: "https://kind-desert-0cf58b00f.1.azurestaticapps.net/",
-  image: "/isgBanner.png",
-  tagline: "Create, explore, and share AI-powered adventures with a single click!"
+      github: "https://github.com/domjweb/FastAdventure",
+      demo: "https://kind-desert-0cf58b00f.1.azurestaticapps.net/",
+      image: "/isgBanner.png",
+      tagline: "Create, explore, and share AI-powered adventures with a single click!"
     },
     {
-      id: 2,
+      id: 3,
       title: "Task Management App",
       description: "a collaborative request and workflow management app built with React, FastAPI, Temporal, and PostgreSQL. It enables teams to efficiently submit, track, and resolve requests with real-time collaboration, assignment, team management, and progress analytics.",
       technologies: ["React", "FastAPI", "Cosmos DB", "PostgreSQL", "Temporal"],
