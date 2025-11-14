@@ -28,8 +28,9 @@ html, body {
 }
 
 body {
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-size: cover;
+  will-change: auto;
 }
 
 /* Reset and Base Styles */
@@ -76,6 +77,16 @@ body {
   100% { background-position: 0% 50%; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+  }
+  .App::before,
+  .App::after {
+    animation: none;
+  }
+}
+
 .App {
   min-height: 100vh;
   display: flex;
@@ -87,7 +98,7 @@ body {
 
 .App::before {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   min-width: 100vw;
@@ -101,12 +112,13 @@ body {
     radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 45%),
     radial-gradient(circle at 60% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 35%);
   animation: gentleFloat 40s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 
 .App::after {
   content: '';
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   min-width: 100vw;
@@ -120,6 +132,7 @@ body {
     linear-gradient(-45deg, transparent 48%, rgba(255, 255, 255, 0.02) 49%, rgba(255, 255, 255, 0.02) 51%, transparent 52%);
   background-size: 120px 120px;
   animation: subtlePattern 60s linear infinite;
+  will-change: transform;
 }
 
 @keyframes gentleFloat {
