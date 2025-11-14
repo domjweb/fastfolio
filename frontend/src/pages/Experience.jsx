@@ -7,50 +7,36 @@ const Experience = () => {
       id: 1,
       title: "Full Stack Developer",
       company: "Tegria",
-      period: "August 2023 - Present",
-      description: "Engineered web applications and patient portal solutions for Tegria’s healthcare clients, including hospitals and medical institutions leveraging Meditech and Epic systems. Delivered end-to-end development for client-facing portals, provider dashboards, and secure API integrations that enhanced patient access and hospital interoperability.",
+      period: "Aug 2023 - Present",
+      description: "Engineer healthcare data solutions and analytics platforms for hospital clients leveraging Meditech and Epic systems. Integrate third-party patient portals solutions, provider dashboards, clinical reporting tools, and API integrations that transform raw healthcare data into actionable insights for care teams and executives.",
       technologies: ["C#", "ASP.NET", ".NET", "Classic ASP", "JavaScript", "TypeScript", "React", "SQL Server", "Azure", "Meditech", "Epic", "REST APIs", "CI/CD"],
       achievements: [
-        "Developed custom patient portals and web applications enabling patients to securely access records, appointments, and billing information",
-        "Integrated hospital systems with Meditech and Epic APIs to synchronize patient data, scheduling, and registration workflows",
-        "Built and maintained backend services supporting multi-hospital deployments with high uptime and compliance requirements",
-        "Partnered directly with healthcare IT teams to design scalable, compliant solutions that met HIPAA and interoperability standards",
-        "Advocated for user-friendly design choices based on client and patient feedback, improving adoption rates across multiple hospital systems"
+        "Developed provider dashboards and analytics tools that visualize patient outcomes, quality metrics, and operational performance across multi-hospital deployments",
+        "Built data integration pipelines connecting Meditech and Epic systems, enabling real-time reporting and clinical decision support for care coordination teams",
+        "Engineered patient portal solutions with secure record access, appointment scheduling, and outcome tracking—improving patient engagement and satisfaction scores",
+        "Designed RESTful APIs that aggregate clinical data from disparate hospital systems, powering executive dashboards and registry reporting tools",
+        "Partnered with healthcare IT teams to deliver HIPAA-compliant solutions that meet interoperability standards while providing actionable intelligence for quality improvement initiatives"
       ]
     },
     {
       id: 2,
       title: "Full Stack Developer",
       company: "CVS",
-      period: "Feb 2023 - Aug 2023", 
-      description: "Developed enterprise-grade solutions that enhanced pharmacy operations, patient access, and internal workflow automation for retail and clinical systems.",
+      period: "Oct 2021 - Aug 2023", 
+      description: "Developed healthcare data solutions and analytics platforms that transformed pharmacy operations, clinical workflows, and patient care delivery through automated insights and visual reporting.",
       technologies: ["Java", "Spring", "C#", "ASP.NET", ".NET", "Python", "JavaScript", "TypeScript", "Node.js", "Express", "Azure", "SQL Server", "REST APIs", "Proprietary Systems"],
       achievements: [
-        "Implemented backend integrations that reduced manual data processing time by 25%",
-        "Built workflow automation scripts improving efficiency in pharmacy and clinical support applications",
-        "Contributed to the stability of production environments through active debugging, monitoring, and documentation"
+        "Built data integration pipelines that aggregated pharmacy metrics, enabling real-time performance dashboards for operational decision-making",
+        "Developed automated reporting tools that reduced manual data analysis time by 25%, providing actionable insights for clinical and retail teams",
+        "Designed RESTful APIs serving healthcare data to internal dashboards, supporting executive visibility into patient access and pharmacy operations",
+        "Contributed to production system stability through proactive monitoring, creating alerting mechanisms that improved incident response times"
       ]
     },
     {
       id: 3,
-      title: "Fullstack Developer",
-      company: "Kelly Connect",
-      period: "Oct 2021 - Feb 2023",
-      description: "Developed custom full-stack web applications for KellyConnect’s third-party enterprise clients, delivering scalable recruiting, workforce, and analytics platforms tailored to client needs. Partnered directly with stakeholders to translate business requirements into robust, production-ready solutions used by thousands of employees and applicants.",
-      technologies: ["JavaScript", "TypeScript", "React", "Node.js", "Express", "Java", "Spring", "C#", "ASP.NET", ".NET", "PostgreSQL", "AWS", "Lambda", "S3", "API Integrations"],
-      achievements: [
-        "Built responsive, client-facing web applications that streamlined applicant tracking and onboarding processes",
-        "Developed backend services and REST APIs to handle authentication, data management, and performance reporting",
-        "Collaborated with cross-functional client teams to design user interfaces and deliver custom workflows for large-scale deployments",
-        "Optimized application performance and scalability to support high-volume concurrent users across multiple client environments",
-        "Delivered multiple end-to-end solutions on time and within scope, improving client satisfaction and operational efficiency"
-      ]
-    },
-    {
-      id: 4,
       title: "Junior Developer",
       company: "Apple",
-      period: "Jan 2021 - Oct 2021",
+      period: "Sep 2020 - Oct 2021",
       description: "Worked on Apple's proprietary applications Core and Gather, building new features for the Gather macOS knowledge base app used by customer service teams.",
       technologies: ["Swift", "Objective-C", "Xcode",],
       achievements: [
