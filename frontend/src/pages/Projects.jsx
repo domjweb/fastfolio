@@ -15,25 +15,6 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Trauma Revenue Insights Mini-Registry",
-      description: "Full-stack healthcare analytics platform combining clinical trauma registry data with revenue cycle management. Built with NQS-inspired dashboards featuring Performance Improvement metrics, Revenue Analysis, and Data Quality tracking. Identifies $5M+ in annual lost charges through intelligent flagging and prioritization of high-value opportunities for Trauma Program Managers and RCM teams.",
-      technologies: ["Django", "React", "TypeScript", "Azure Container Apps", "Terraform", "Docker", "GitHub Actions", "REST API", "Vite"],
-      features: [
-        "Four-tab analytics dashboard: Overview, Performance Improvement, Revenue Analysis, and Data Quality",
-        "Automated revenue capture rate calculation identifying cases with >$10k uncaptured charges",
-        "Real-time complication risk analysis based on ISS severity and resource utilization patterns",
-        "CI/CD pipeline with GitHub Actions deploying containerized microservices to Azure",
-        "Business logic layer calculating expected charges, data completeness scores, and quality flags",
-        "Responsive UI with interactive visualizations, severity distributions, and timeline charts"
-      ],
-      github: "https://github.com/domjweb/TraumaReg",
-      demo: "https://traumareg-frontend.greenground-19fbcf12.eastus.azurecontainerapps.io",
-      image: "/traumaRegBanner.png",
-      tagline: "Proactive analytics for trauma programs—find lost revenue before it's too late!"
-
-    },
-    {
-      id: 2,
       title: "Healthcare Claims Processing System",
       description: "Enterprise-grade healthcare claims validation and processing system built with FastAPI and React. Processes EDI 837 (837I Institutional and 837P Professional) claim files, validates against HIPAA standards, performs automated adjudication, and generates 835 remittance advice. Deployed on Azure Container Apps with PostgreSQL database, featuring real-time claim tracking and status management.",
       technologies: ["Python", "FastAPI", "React", "PostgreSQL", "Docker", "Azure Container Apps", "Terraform", "SQLAlchemy", "Alembic", "X12 EDI"],
@@ -53,7 +34,7 @@ const Projects = () => {
       tagline: "Streamlining Healthcare Claims Processing with Modern Cloud Architecture"
     },
     {
-      id: 3,
+      id: 2,
       title: "Interactive Story Generator",
       description: "Story Generator is a web app that lets users instantly create and explore interactive, AI-generated adventure stories based on their chosen themes.",
       technologies: ["JavaScript", "Python", "React", "Node.js", "FastAPI", "Cosmos DB", "SWA", "Azure Managed Functions"],
@@ -75,7 +56,7 @@ const Projects = () => {
       tagline: "Create, explore, and share AI-powered adventures with a single click!"
     },
     {
-      id: 4,
+      id: 3,
       title: "Task Management App",
       description: "a collaborative request and workflow management app built with React, FastAPI, Temporal, and PostgreSQL. It enables teams to efficiently submit, track, and resolve requests with real-time collaboration, assignment, team management, and progress analytics.",
       technologies: ["React", "FastAPI", "Cosmos DB", "PostgreSQL", "Temporal"],
